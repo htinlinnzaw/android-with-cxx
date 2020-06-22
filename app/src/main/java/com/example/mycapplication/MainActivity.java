@@ -1,5 +1,7 @@
 package com.example.mycapplication;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -19,31 +21,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private final AtomicInteger counter = new AtomicInteger(0);
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        new AsyncTask<Void, Void, Void>() { // These AsyncTask would cause Memory Leaks
-//            @Override
-//            protected Void doInBackground(Void... voids) {
-//                while (true) {
-//                    Log.e("AsyncTask", "count: " + counter.get());
-//                    counter.incrementAndGet();
-//                }
-//            }
-//        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//    }
+    private AsyncTask mAsyncTask;
 
     @Override
     public void onStart() {
         super.onStart();
-        new Thread(() -> {
-            while (true) {
-                Log.d("Thread", "count: " + counter.get());
-                counter.incrementAndGet();
+        mAsyncTask = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                while (!isCancelled()) {
+                    Log.d("AsyncTask", "count: " + counter.get());
+                    counter.incrementAndGet();
+                }
+                return null;
             }
-        }).start();
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mAsyncTask.cancel(true);
+    }
+
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        new Thread(() -> {
+//            while (true) {
+//                Log.d("Thread", "count: " + counter.get());
+//                counter.incrementAndGet();
+//            }
+//        }).start();
+//    }
 
 //    @Override
 //    public void onStart() {
