@@ -2,6 +2,7 @@ package com.example.mycapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Observable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +45,17 @@ public class MainActivity extends AppCompatActivity
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        Observable.fromCallable(() -> {
+//            while (true) {
+//                Log.e("RxJava", "count: " + counter.get);
+//                counter.incrementAndGet();
+//            }
+//        }).subscribeOn(Schedulers.computation()).subscribe();
+//    }
 
     /**
      * A native method that is implemented by the 'native-lib' native library,
