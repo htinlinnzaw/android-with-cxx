@@ -1,37 +1,25 @@
 package com.example.mycapplication;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.database.Observable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
-
 import java.util.concurrent.atomic.AtomicInteger;
-
-public class MainActivity extends AppCompatActivity
-{
-
+public class MainActivity extends AppCompatActivity {
     // Used to load the 'native-lib' library on application startup.
-    static
-    {
+    static {
         System.loadLibrary("native-lib");
     }
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // Example of a call to a native method
         TextView tv = findViewById(R.id.sample_text);
         tv.setText(stringFromJni());
     }
 
     private final AtomicInteger counter = new AtomicInteger(0);
-
     @Override
     public void onStart() {
         super.onStart();
@@ -66,5 +54,4 @@ public class MainActivity extends AppCompatActivity
     public native int sub();
     public native int multiply();
     public native int divide();
-
 }
