@@ -45,6 +45,18 @@ public class MainActivity extends AppCompatActivity {
 //        }).subscribeOn(Schedulers.computation()).subscribe();
 //    }
 
+//    override fun onStart() {
+//        super.onStart()
+//        CoroutineScope(Dispatchers.Main).launch {
+//            withContext(Dispatchers.Default) {
+//                while (true) {
+//                    Log.d("Coroutines", "count: ${counter.get()}")
+//                    counter.incrementAndGet()
+//                }
+//            }
+//        }
+//    }
+
     /**
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
